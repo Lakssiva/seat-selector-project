@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurora Cinema - Movie Seat Selector</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #8e88fb; /* Deep Blue */
+      color: #00FFFF; /* Light Cyan */
+    }
+
+    .container {
+      width: 400px;
+      padding: 20px;
+      background-color: #4b4848;
+      border-radius: 10px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+
+    .theater-name {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #f488d7;
+    }
+
+    .screen {
+      background-color: #ddd;
+      height: 70px;
+      width: 100%;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .seat {
+      background-color: #9d77d2; /* Purple */
+      height: 25px;
+      width: 25px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .seat.selected {
+      background-color: #77DD77; /* Neon Green */
+    }
+
+    .seat.occupied {
+      background-color: #D32F2F; /* Dark Red */
+      cursor: not-allowed;
+    }
+
+    .row-title {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .seat-info {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    .seat-info div {
+      display: flex;
+      align-items: center;
+    }
+
+    .seat-info div span {
+      margin-left: 5px;
+    }
+
+    .seat-info .seat.selected,
+    .seat-info .seat.occupied {
+      cursor: default;
+    }
+
+    .total {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="theater-name">Aurora Cinema</div>
+
+    <div class="screen"></div>
+
+    <div class="row-title">Select your seats</div>
+
+    <div class="row">
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat occupied"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+    </div>
+
+    <div class="row">
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat occupied"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+    </div>
+
+    <div class="row">
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat occupied"></div>
+      <div class="seat"></div>
+    </div>
+
+    <div class="seat-info">
+      <div><div class="seat"></div><span>Available</span></div>
+      <div><div class="seat selected"></div><span>Selected</span></div>
+      <div><div class="seat occupied"></div><span>Occupied</span></div>
+    </div>
+
+    <div class="total">Total: ₹0</div>
+
+  </div>
+
+  <script>
+    const seats = document.querySelectorAll('.row .seat:not(.occupied)');
+    const seatSelectedClass = 'selected';
+    const ticketPrice = 150;
+    const totalDisplay = document.querySelector('.total');
+
+    function updateTotal() {
+      const selectedSeats = document.querySelectorAll('.row .seat.selected');
+      const totalAmount = selectedSeats.length * ticketPrice;
+      totalDisplay.textContent = `Total: ₹${totalAmount}`;
+    }
+
+    seats.forEach(seat => {
+      seat.addEventListener('click', () => {
+        seat.classList.toggle(seatSelectedClass);
+        updateTotal();
+      });
+    });
+  </script>
+
+</body>
+</html>
